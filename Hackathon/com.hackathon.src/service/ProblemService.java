@@ -1,18 +1,18 @@
 package service;
 
 import model.Problem;
-import respository.ProblemRepository;
+import respository.IProblemRepository;
 import util.Difficulty;
 import util.Tag;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ProblemService {
+public class ProblemService implements IProblemService {
 
-    ProblemRepository problemRepository;
+    IProblemRepository problemRepository;
 
-    public ProblemService(ProblemRepository problemRepository) {
+    public ProblemService(IProblemRepository problemRepository) {
         this.problemRepository = problemRepository;
     }
 
@@ -53,11 +53,11 @@ public class ProblemService {
         return problemRepository.getProblems();
     }
 
-    public Problem getProblem(int problemId) throws Exception {
+    public Problem getProblem(int problemId) {
         return problemRepository.getProblem(problemId);
     }
 
-    public void updateAvgTime(int problemId, Double time) throws Exception {
-        problemRepository.updateAvgTime(problemId, time);
+    public void updateAvgTime(int problemId, Double time) {
+        problemRepository.updateProblemAvgTime(problemId, time);
     }
 }

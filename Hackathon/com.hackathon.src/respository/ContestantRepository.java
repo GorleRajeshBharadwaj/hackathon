@@ -4,7 +4,7 @@ import model.Contestant;
 
 import java.util.*;
 
-public class ContestantRepository {
+public class ContestantRepository implements IContestantRepository {
 
     Map<Integer, Contestant> allContestants;
     int autoIncrementId;
@@ -20,8 +20,11 @@ public class ContestantRepository {
         autoIncrementId++;
     }
 
-    public void updateTotalScore(int contestantId, int score) throws Exception {
-        if(!allContestants.containsKey(contestantId)) throw new Exception("Contestant does not exits with id " + contestantId);
+    public void updateTotalScore(int contestantId, int score) {
+        if(!allContestants.containsKey(contestantId)) {
+            //throw new Exception("Contestant does not exits with id " + contestantId);
+            System.out.println("Contestant does not exits with id " + contestantId);
+        }
         Contestant contestant = allContestants.get(contestantId);
         contestant.setTotalScore(contestant.getTotalScore() + score);
         contestant.setRecentUpdateTime(new Date());

@@ -1,21 +1,19 @@
 package service;
 
-import model.Contestant;
 import model.Problem;
 import model.UserSession;
-import respository.ProblemRepository;
-import respository.UserSessionRepository;
+import respository.IUserSessionRepository;
 
 import java.util.List;
 
-public class UserSessionService {
+public class UserSessionService implements IUserSessionService {
 
-    UserSessionRepository userSessionRepository;
-    ProblemService problemService;
+    IUserSessionRepository userSessionRepository;
+    IProblemService problemService;
 
-    ContestantService contestantService;
+    IContestantService contestantService;
 
-    public UserSessionService(UserSessionRepository userSessionRepository, ProblemService problemService, ContestantService contestantService) {
+    public UserSessionService(IUserSessionRepository userSessionRepository, IProblemService problemService, IContestantService contestantService) {
         this.userSessionRepository = userSessionRepository;
         this.problemService = problemService;
         this.contestantService = contestantService;
@@ -25,7 +23,7 @@ public class UserSessionService {
         userSessionRepository.addUserSession(userId, problemId);
     }
 
-    public void solve(int userId, int problemId) throws Exception {
+    public void solve(int userId, int problemId) {
         userSessionRepository.addEndTime(userId, problemId);
         UserSession userSession = userSessionRepository.getUserSession(userId, problemId);
 

@@ -1,18 +1,18 @@
 package service;
 
 import model.Contestant;
-import respository.ContestantRepository;
+import respository.IContestantRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.summingInt;
 
-public class ContestantService {
+public class ContestantService implements IContestantService {
 
-    ContestantRepository contestantRepository;
+    IContestantRepository contestantRepository;
 
-    public ContestantService(ContestantRepository contestantRepository) {
+    public ContestantService(IContestantRepository contestantRepository) {
         this.contestantRepository = contestantRepository;
     }
 
@@ -20,11 +20,11 @@ public class ContestantService {
         this.contestantRepository.addContestant(name, description);
     }
 
-    public void updateTotalScore(int userId, int score) throws Exception {
+    public void updateTotalScore(int userId, int score) {
         contestantRepository.updateTotalScore(userId, score);
     }
 
-    public List<Contestant> displayLeaderShipBoard(int n) {
+    public List<Contestant> displayLeaderShipBoard(int size) {
         List<Contestant> contestants = contestantRepository.getContestants();
 
         Collections.sort(contestants, new Comparator<Contestant>() {
@@ -34,10 +34,10 @@ public class ContestantService {
                 return o2.getTotalScore()-o1.getTotalScore();
             }
         });
-        return contestants.stream().limit(n).collect(Collectors.toList());
+        return contestants.stream().limit(size).collect(Collectors.toList());
     }
 
-    public List<String> displayLeadShipBoardDepartmants(int n) {
+    public List<String> displayLeadShipBoardDepartmants(int size) {
         List<Contestant> contestants = contestantRepository.getContestants();
 
         Map<String, Integer> departmantScore = contestants.stream().collect(Collectors.groupingBy(contestant -> contestant.getDepartment(), summingInt(contestant -> contestant.getTotalScore())));
@@ -50,7 +50,7 @@ public class ContestantService {
             departmants.add(departmant.getKey());
         }
 
-        return departmants.stream().limit(n).collect(Collectors.toList());
+        return departmants.stream().limit(size).collect(Collectors.toList());
     }
 
     public List<Contestant> getContestants() {

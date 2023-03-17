@@ -1,10 +1,5 @@
-import model.Contestant;
-import respository.ContestantRepository;
-import respository.ProblemRepository;
-import respository.UserSessionRepository;
-import service.ContestantService;
-import service.ProblemService;
-import service.UserSessionService;
+import respository.*;
+import service.*;
 import util.Difficulty;
 import util.Tag;
 
@@ -14,8 +9,8 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ContestantRepository contestantRepository = new ContestantRepository();
-        ContestantService contestantService = new ContestantService(contestantRepository);
+        IContestantRepository contestantRepository = new ContestantRepository();
+        IContestantService contestantService = new ContestantService(contestantRepository);
 
         contestantService.addUser("rajesh", "ECE");
         contestantService.addUser("abhishek", "ECE");
@@ -23,16 +18,16 @@ public class Main {
         contestantService.addUser("pramod", "CSE");
 
 
-        ProblemRepository problemRepository = new ProblemRepository();
-        ProblemService problemService = new ProblemService(problemRepository);
+        IProblemRepository problemRepository = new ProblemRepository();
+        IProblemService problemService = new ProblemService(problemRepository);
 
         problemService.addProblem("DP problem", 100, Difficulty.HARD, new HashSet<>(Arrays.asList(Tag.DP)));
         problemService.addProblem("BFS problem", 75, Difficulty.MEDIUM, new HashSet<>(Arrays.asList(Tag.Graph, Tag.BFS)));
         problemService.addProblem("DFS problem", 60, Difficulty.MEDIUM, new HashSet<>(Arrays.asList(Tag.Graph, Tag.DFS)));
         problemService.addProblem("Tree problem", 40, Difficulty.EASY, new HashSet<>(Arrays.asList(Tag.BST, Tag.BinarySearch)));
 
-        UserSessionRepository userSessionRepository = new UserSessionRepository();
-        UserSessionService userSessionService = new UserSessionService(userSessionRepository, problemService, contestantService);
+        IUserSessionRepository userSessionRepository = new UserSessionRepository();
+        IUserSessionService userSessionService = new UserSessionService(userSessionRepository, problemService, contestantService);
 
         userSessionService.addUserSession(1, 1);
         userSessionService.solve(1, 1);
@@ -49,7 +44,7 @@ public class Main {
         System.out.println(contestantService.getContestants());
         System.out.println(problemService.getProblems());
 
-        System.out.println(contestantService.displayLeaderShipBoard(4));
-        System.out.println(contestantService.displayLeadShipBoardDepartmants(4));
+        System.out.println(contestantService.displayLeaderShipBoard(6));
+        System.out.println(contestantService.displayLeadShipBoardDepartmants(6));
     }
 }

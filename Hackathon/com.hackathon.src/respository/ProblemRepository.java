@@ -6,7 +6,7 @@ import util.Tag;
 
 import java.util.*;
 
-public class ProblemRepository {
+public class ProblemRepository implements IProblemRepository {
 
     private Map<Integer, Problem> allProblems;
     int autoIncrementId;
@@ -22,8 +22,11 @@ public class ProblemRepository {
         autoIncrementId++;
     }
 
-    public void updateProblemAvgTime(int problemId, double averageTime) throws Exception {
-        if(!allProblems.containsKey(problemId)) throw new Exception("Problem does not exits with id " + problemId);
+    public void updateProblemAvgTime(int problemId, double averageTime) {
+        if(!allProblems.containsKey(problemId)) {
+            //throw new Exception("Problem does not exits with id " + problemId);
+            System.out.println("Problem does not exits with id " + problemId);
+        }
         Problem prob = allProblems.get(problemId);
         prob.setAverageTime(averageTime);
         allProblems.put(problemId, prob);
@@ -41,14 +44,11 @@ public class ProblemRepository {
         return problemList;
     }
 
-    public Problem getProblem(int problemId) throws Exception {
-        if(!allProblems.containsKey(problemId)) throw new Exception("Problem not found!");
+    public Problem getProblem(int problemId)  {
+        if(!allProblems.containsKey(problemId)) {
+            //throw new Exception("Problem not found!");
+            System.out.println("Problem with id " + problemId + " not found!");
+        }
         return allProblems.get(problemId);
-    }
-
-    public void updateAvgTime(int problemId, Double time) throws Exception {
-        if(!allProblems.containsKey(problemId)) throw new Exception("Problem not found!");
-        Problem problem = allProblems.get(problemId);
-        problem.updateNewAvgTimeAndUserCount(time);
     }
 }
