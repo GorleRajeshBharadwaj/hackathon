@@ -31,7 +31,7 @@ public class ContestantService {
             @Override
             public int compare(Contestant o1, Contestant o2) {
                 if(o1.getTotalScore() == o2.getTotalScore()) return o1.getRecentUpdateTime().compareTo(o2.getRecentUpdateTime());
-                return o1.getTotalScore()-o2.getTotalScore();
+                return o2.getTotalScore()-o1.getTotalScore();
             }
         });
         return contestants.stream().limit(n).collect(Collectors.toList());
@@ -51,5 +51,9 @@ public class ContestantService {
         }
 
         return departmants.stream().limit(n).collect(Collectors.toList());
+    }
+
+    public List<Contestant> getContestants() {
+        return contestantRepository.getContestants();
     }
 }

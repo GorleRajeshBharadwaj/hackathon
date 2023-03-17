@@ -20,6 +20,7 @@ public class Problem {
         this.score = score;
         this.level = level;
         problemTags = tags;
+        this.averageTime = 0.0;
     }
 
     public String getDescription() {

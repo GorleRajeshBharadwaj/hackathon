@@ -49,6 +49,10 @@ public class ProblemService {
         return problemRepository.getProblems(problemIdList);
     }
 
+    public List<Problem> getProblems() {
+        return problemRepository.getProblems();
+    }
+
     public Problem getProblem(int problemId) throws Exception {
         return problemRepository.getProblem(problemId);
     }
